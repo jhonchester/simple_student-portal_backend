@@ -1,14 +1,15 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 
 const studentRoutes = require("./routes/studentRoutes");
 
 app.use(express.json());
 
-// Automatically redirect root `/` to `/student` route
-app.use("/", studentRoutes);
+// Serve static frontend files from /public
+app.use(express.static(path.join(__dirname, "public")));
 
-// Mount student routes as well
+// Mount API route
 app.use("/student", studentRoutes);
 
 module.exports = app;

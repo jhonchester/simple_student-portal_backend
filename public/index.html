@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Portal</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="card">
+    <header class="card-header">
+      <h1 id="name">Student Portal</h1>
+      <p class="subtitle">A simple profile viewer</p>
+    </header>
+
+    <section class="card-body">
+      <div class="row">
+        <div class="label">Firstname</div>
+        <div id="firstname" class="value">—</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Middle Initial</div>
+        <div id="middle_initial" class="value">—</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Lastname</div>
+        <div id="lastname" class="value">—</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Class Section</div>
+        <div id="class_section" class="value">—</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Year & Course</div>
+        <div id="year_and_course" class="value">—</div>
+      </div>
+
+      <div class="quote-block">
+        <blockquote id="quote">Loading quote…</blockquote>
+      </div>
+    </section>
+
+    <footer class="card-footer">
+      <button id="refreshBtn">Refresh</button>
+      <small>Deployed: <span id="url"></span></small>
+    </footer>
+  </main>
+
+  <script>
+    async function loadStudent() {
+      try {
+        const resp = await fetch("/student");
+        if (!resp.ok) throw new Error("Network response was not ok");
+        const data = await resp.json();
+
+        document.getElementById("firstname").textContent = data.firstname || "—";
+        document.getElementById("middle_initial").textContent = data.middle_initial || "—";
+        document.getElementById("lastname").textContent = data.lastname || "—";
+        document.getElementById("class_section").textContent = data.class_section || "—";
+        document.getElementById("year_and_course").textContent = data.year_and_course || "—";
+        document.getElementById("quote").textContent = data.quote || "—";
+
+        document.getElementById("url").textContent = window.location.href;
+        document.getElementById("name").textContent = `${data.firstname} ${data.middle_initial} ${data.lastname}`;
+      } catch (err) {
+        document.getElementById("quote").textContent = "Failed to load student data.";
+        console.error(err);
+      }
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", loadStudent);
+
+    // load on startup
+    loadStudent();
+  </script>
+</body>
+</html>
