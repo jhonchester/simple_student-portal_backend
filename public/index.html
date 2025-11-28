@@ -34,10 +34,7 @@
         <div id="class_section" class="value">—</div>
       </div>
 
-      <div class="row">
-        <div class="label">Year & Course</div>
-        <div id="year_and_course" class="value">—</div>
-      </div>
+      
 
       <div class="quote-block">
         <blockquote id="quote">Loading quote…</blockquote>
@@ -61,7 +58,7 @@
         document.getElementById("middle_initial").textContent = data.middle_initial || "—";
         document.getElementById("lastname").textContent = data.lastname || "—";
         document.getElementById("class_section").textContent = data.class_section || "—";
-        document.getElementById("year_and_course").textContent = data.year_and_course || "—";
+        
         document.getElementById("quote").textContent = data.quote || "—";
 
         document.getElementById("url").textContent = window.location.href;
@@ -72,7 +69,7 @@
       }
     }
 
-    document.getElementById("refreshBtn").addEventListener("click", loadStudent);
+    
 
     // load on startup
     loadStudent();
